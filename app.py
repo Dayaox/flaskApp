@@ -92,6 +92,7 @@ def login():
             print('La contraseña es incorrecta.')
             return redirect(url_for('login'))
         login_user(user)
+        print('acceso exitoso')
         return redirect(url_for('home'))
 
     return render_template('login.html')
