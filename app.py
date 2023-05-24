@@ -93,7 +93,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user)
         print('acceso exitoso')
-        return redirect(url_for('home'))
+        return redirect(url_for('inventario'))
 
     return render_template('login.html')
 
