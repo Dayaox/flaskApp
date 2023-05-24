@@ -84,13 +84,15 @@ def login():
         print(user_data)
         if user_data is None:
             flash('El usuario no existe.', 'error')
+            print('El usuario no existe.')
             return redirect(url_for('login'))
         user = User(*user_data)
         if not check_password_hash(user.password, password):
             flash('La contraseña es incorrecta.', 'error')
+            print('La contraseña es incorrecta.')
             return redirect(url_for('login'))
         login_user(user)
-        return redirect(url_for('inventario'))
+        return redirect(url_for('home'))
 
     return render_template('login.html')
 
