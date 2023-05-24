@@ -112,3 +112,10 @@ def inventario():
         abort(403)
     return render_template('inventario.html')
 
+########################## MAIN FLASK ##############################
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0',port=80,debug=False)
+
+
+
