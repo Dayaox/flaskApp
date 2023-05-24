@@ -75,7 +75,6 @@ def login():
         return redirect(url_for('inventario'))
 
     if request.method == 'POST':
-        print('post')
         username = request.form['username']
         password = request.form['password']
         cursor = mysql.connection.cursor()
@@ -115,6 +114,7 @@ def admin():
 @app.route('/inventario')
 @login_required
 def inventario():
+    print(current_user)
     if current_user.role not in ['admin', 'user']:
         abort(403)
     return render_template('inventario.html')
