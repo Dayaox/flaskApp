@@ -43,6 +43,7 @@ class User(UserMixin):
         if user_data is None:
             return None
         user = User(*user_data)
+        print(user_data)
         return user
 
 
@@ -70,6 +71,7 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
+        print('acceso')
         return redirect(url_for('inventario'))
 
     if request.method == 'POST':
