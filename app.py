@@ -114,6 +114,7 @@ def admin():
 @app.route('/inventario')
 @login_required
 def inventario():
+    print('en ruta inventario')
     print(current_user)
     if current_user.role not in ['admin', 'user']:
         abort(403)
