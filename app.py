@@ -107,7 +107,7 @@ def admin():
     return render_template('admin.html')
 
 @app.route('/inventario')
-@login_required
+
 def inventario():
     print(current_user)
     if current_user.role not in ['admin', 'user']:
