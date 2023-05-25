@@ -65,6 +65,8 @@ def before_request():
 def home():
     return render_template('home.html')
 
+from flask import flash
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -76,7 +78,6 @@ def login():
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
         user_data = cursor.fetchone()
-        print(user_data)
         if user_data is None:
             flash('El usuario no existe.', 'error')
             return redirect(url_for('login'))
@@ -88,6 +89,7 @@ def login():
         return redirect(url_for('inventario'))
 
     return render_template('login.html')
+
 
 @app.route('/logout')
 @login_required
