@@ -78,6 +78,7 @@ def login():
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
         user_data = cursor.fetchone()
+        print(user_data)
         if user_data is None:
             flash('El usuario no existe.', 'error')
             return redirect(url_for('login'))
