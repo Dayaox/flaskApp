@@ -108,4 +108,4 @@ def inventario():
     return
 
 if __name__ == '__main__':
-    app.run(host='10.0.100.122',debug=False)
+    app.run(host='10.0.100.122',port=80,debug=False)
