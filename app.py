@@ -80,13 +80,13 @@ def login():
         user_data = cursor.fetchone()
         if user_data is None:
             flash('El usuario no existe.', 'error')
-            return redirect(url_for('/login'))
+            return redirect(url_for('login'))
         user = User(*user_data)
         if not check_password_hash(user.password, password):
             flash('La contraseña es incorrecta.', 'error')
-            return redirect(url_for('/login'))
+            return redirect(url_for('login'))
         login_user(user)
-        return redirect(url_for('/inventario'))
+        return redirect(url_for('admin'))
 
     return render_template('login.html')
 
