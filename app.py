@@ -3,6 +3,7 @@ from flask_login import LoginManager, login_user, current_user, login_required, 
 from flask_mysqldb import MySQL
 from werkzeug.security import check_password_hash
 from datetime import datetime, timedelta
+from werkzeug.security import check_password_hash_scrypt
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
@@ -78,7 +79,8 @@ def login():
             flash('El usuario no existe.', 'error')
             return redirect(url_for('login'))
         user = User(*user_data)
-        if not check_password_hash(user.password, password):
+        #if not check_password_hash(user.password, password):
+        if not check_password_hash_scrypt(user.password, password):
             flash('La contraseña es incorrecta.', 'error')
             return redirect(url_for('login'))
         login_user(user)
