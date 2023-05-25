@@ -106,3 +106,6 @@ def inventario():
     if current_user.role not in ['admin', 'user']:
         abort(403)
     return
+
+if __name__ == '__main__':
+    app.run(host='10.0.100.122',debug=False)
