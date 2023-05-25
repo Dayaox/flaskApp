@@ -111,7 +111,7 @@ def admin():
 def inventario():
     if current_user.role not in ['admin', 'user']:
         abort(403)
-    return
+    return render_template('inventario.html')
 
 if __name__ == '__main__':
     app.run(host='10.0.100.122',port=80,debug=False)
