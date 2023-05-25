@@ -1,9 +1,7 @@
-from flask import Flask, render_template, redirect, url_for, request, flash, abort, session
+from flask import Flask, render_template, redirect, url_for, request, flash, session, abort
 from flask_login import LoginManager, login_user, current_user, login_required, logout_user, UserMixin
-from functools import update_wrapper
 from flask_mysqldb import MySQL
 from werkzeug.security import check_password_hash
-from flask_session import Session
 from datetime import datetime, timedelta
 
 app = Flask(__name__)
@@ -15,7 +13,7 @@ app.config['MYSQL_DB'] = 'ventas_flask'
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 app.config['SESSION_COOKIE_SECURE'] = True
-Session(app)
+
 mysql = MySQL(app)
 
 login_manager = LoginManager(app)
@@ -43,10 +41,7 @@ class User(UserMixin):
         if user_data is None:
             return None
         user = User(*user_data)
-        print(user_data)
         return user
-
-
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -71,7 +66,6 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        print('acceso')
         return redirect(url_for('inventario'))
 
     if request.method == 'POST':
@@ -80,18 +74,14 @@ def login():
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
         user_data = cursor.fetchone()
-        print(user_data)
         if user_data is None:
             flash('El usuario no existe.', 'error')
-            print('El usuario no existe.')
             return redirect(url_for('login'))
         user = User(*user_data)
         if not check_password_hash(user.password, password):
             flash('La contraseña es incorrecta.', 'error')
-            print('La contraseña es incorrecta.')
             return redirect(url_for('login'))
         login_user(user)
-        print('acceso exitoso')
         return redirect(url_for('inventario'))
 
     return render_template('login.html')
@@ -103,27 +93,16 @@ def logout():
     session.clear()
     return redirect(url_for('home'))
 
-
 @app.route('/admin')
 @login_required
 def admin():
     if current_user.role != 'admin':
         abort(403)
-    return render_template('login.html')
+    return render_template('admin.html')
 
 @app.route('/inventario')
 @login_required
 def inventario():
-    print('en ruta inventario')
-    print(current_user)
     if current_user.role not in ['admin', 'user']:
         abort(403)
-    return render_template('inventario.html')
-
-########################## MAIN FLASK ##############################
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=80,debug=False)
-
-
-
+    return
