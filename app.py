@@ -26,12 +26,11 @@ class User(UserMixin):
         self.password = password
         self.role = role
         self.is_active = active
-        print(self)
 
     def get_id(self):
         return str(self.id)
 
-    def is_active(self):
+    def is_user_active(self):
         return self.is_active
 
     @staticmethod
@@ -42,7 +41,6 @@ class User(UserMixin):
         if user_data is None:
             return None
         user = User(*user_data)
-        print(user)
         return user
 
 
@@ -93,7 +91,6 @@ def login():
     return render_template('login.html')
 
 
-
 @app.route('/logout')
 @login_required
 def logout():
@@ -117,5 +114,6 @@ def inventario():
         abort(403)
     return render_template('inventario.html')
 
+
 if __name__ == '__main__':
-    app.run(host='10.0.100.122',port=80)
+    app.run(host='10.0.100.122
