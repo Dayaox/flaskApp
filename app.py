@@ -26,6 +26,7 @@ class User(UserMixin):
         self.password = password
         self.role = role
         self.is_active = active
+        print(self)
 
     def get_id(self):
         return str(self.id)
@@ -41,6 +42,7 @@ class User(UserMixin):
         if user_data is None:
             return None
         user = User(*user_data)
+        print(user)
         return user
 
 
