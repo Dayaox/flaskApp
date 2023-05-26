@@ -78,7 +78,6 @@ def login():
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
         user_data = cursor.fetchone()
-        print(user_data)
         if user_data is None:
             flash('El usuario no existe.', 'error')
             return redirect(url_for('login'))
@@ -87,10 +86,10 @@ def login():
             flash('La contraseña es incorrecta.', 'error')
             return redirect(url_for('login'))
         login_user(user)
-        print(login_user)
         return redirect(url_for('inventario'))
 
     return render_template('login.html')
+
 
 
 @app.route('/logout')
