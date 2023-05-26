@@ -73,7 +73,9 @@ def login():
         username = request.form['username']
         password = request.form['password']
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM users WHERE username = '"+(username)+"'")
+        sql="SELECT * FROM users WHERE username = '"+str(username)+"'"
+        print(sql)
+        cursor.execute(sql)
         user_data = cursor.fetchone()
         if user_data is None:
             flash('El usuario no existe.', 'error')
