@@ -77,6 +77,7 @@ def login():
         print(sql)
         cursor.execute(sql)
         user_data = cursor.fetchone()
+        print(user_data)
         if user_data is None:
             flash('El usuario no existe.', 'error')
             return redirect(url_for('login'))
