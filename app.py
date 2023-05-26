@@ -91,6 +91,15 @@ def inventario():
         return redirect(url_for('home'))
     return render_template('inventario.html')
 
+@app.route('/ventas')
+@login_required
+def inventario():
+    if current_user.role not in ['admin', 'user']:
+        flash('Acceso no autorizado.', 'error')
+        return redirect(url_for('home'))
+    return render_template('inventario.html')
+
+
 
 if __name__ == '__main__':
     app.run(host='10.0.100.122', port=80)
