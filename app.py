@@ -91,13 +91,13 @@ def inventario():
         return redirect(url_for('home'))
     return render_template('inventario.html')
 
-@app.route('/ventas')
+@app.route('/venta')
 @login_required
-def inventario():
+def venta():
     if current_user.role not in ['admin', 'user']:
         flash('Acceso no autorizado.', 'error')
         return redirect(url_for('home'))
-    return render_template('inventario.html')
+    return render_template('venta.html')
 
 
 
