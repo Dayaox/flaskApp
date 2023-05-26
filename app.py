@@ -16,11 +16,12 @@ login_manager.login_view = 'login'
 
 
 class User(UserMixin):
-    def __init__(self, id, username, password, role):
+    def __init__(self, id, username, password, role, active=True):
         self.id = id
         self.username = username
         self.password = password
         self.role = role
+        self.is_user_active = active
 
     def get_id(self):
         return str(self.id)
