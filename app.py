@@ -115,4 +115,5 @@ def inventario():
         abort(403)
     return render_template('inventario.html')
 
-
+if __name__ == '__main__':
+    app.run()
