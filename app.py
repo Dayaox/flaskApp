@@ -87,6 +87,7 @@ def login():
             flash('La contraseña es incorrecta.', 'error')
             return redirect(url_for('login'))
         login_user(user)
+        print(login_user)
         return redirect(url_for('inventario'))
 
     return render_template('login.html')
