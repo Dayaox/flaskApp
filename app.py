@@ -116,4 +116,4 @@ def inventario():
     return render_template('inventario.html')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='10.0.100.122',port=80)
