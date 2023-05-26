@@ -109,6 +109,7 @@ def admin():
 @app.route('/inventario')
 
 def inventario():
+    print(current_user)
     print(current_user.is_authenticated)
     print(current_user.role)
     if current_user.role not in ['admin', 'user']:
