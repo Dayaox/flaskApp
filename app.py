@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 
 
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
 app.config['MYSQL_HOST'] = 'localhost'
@@ -33,7 +34,7 @@ class User(UserMixin):
         return str(self.id)
 
     def is_active(self):
-        return self.active
+        return self.is_active
 
     @staticmethod
     def get(user_id):
@@ -44,6 +45,7 @@ class User(UserMixin):
             return None
         user = User(*user_data)
         return user
+
 
 @login_manager.user_loader
 def load_user(user_id):
