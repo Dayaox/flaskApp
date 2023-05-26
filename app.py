@@ -67,7 +67,7 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('inventario'))
+        return redirect('/inventario')
 
     if request.method == 'POST':
         username = request.form['username']
@@ -83,9 +83,10 @@ def login():
             flash('La contraseña es incorrecta.', 'error')
             return redirect(url_for('login'))
         login_user(user)
-        return redirect(url_for('inventario'))
+        return redirect('/inventario')
 
     return render_template('login.html')
+
 
 
 @app.route('/logout')
