@@ -30,9 +30,6 @@ class User(UserMixin):
     def get_id(self):
         return str(self.id)
 
-    def is_user_active(self):
-        return self.is_active
-
     @staticmethod
     def get(user_id):
         cursor = mysql.connection.cursor()
@@ -97,8 +94,6 @@ def logout():
     logout_user()
     session.clear()
     return redirect(url_for('home'))
-
-
 @app.route('/admin')
 @login_required
 def admin():
