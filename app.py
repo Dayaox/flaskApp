@@ -25,7 +25,7 @@ class User(UserMixin):
         self.username = username
         self.password = password
         self.role = role
-        self.is_active = active
+        self.is_user_active = active
 
     def get_id(self):
         return str(self.id)
@@ -94,6 +94,8 @@ def logout():
     logout_user()
     session.clear()
     return redirect(url_for('home'))
+
+
 @app.route('/admin')
 @login_required
 def admin():
