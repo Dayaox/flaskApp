@@ -73,6 +73,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         cursor = mysql.connection.cursor()
+        print('SELECT * FROM users WHERE username = %s', (username,))
         cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
         user_data = cursor.fetchone()
         if user_data is None:
