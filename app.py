@@ -4,9 +4,6 @@ from flask_mysqldb import MySQL
 from werkzeug.security import check_password_hash
 from datetime import datetime, timedelta
 
-
-
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
 app.config['MYSQL_HOST'] = 'localhost'
@@ -18,9 +15,9 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 app.config['SESSION_COOKIE_SECURE'] = True
 
 mysql = MySQL(app)
-
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+
 
 class User(UserMixin):
     def __init__(self, id, username, password, role, active=True):
@@ -51,6 +48,7 @@ class User(UserMixin):
 def load_user(user_id):
     return User.get(user_id)
 
+
 @app.before_request
 def before_request():
     session.permanent = True
@@ -63,11 +61,11 @@ def before_request():
             return redirect(url_for('login'))
         session['last_active'] = datetime.utcnow()
 
+
 @app.route('/')
 def home():
     return render_template('home.html')
 
-from flask import flash
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -93,12 +91,14 @@ def login():
 
     return render_template('login.html')
 
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     session.clear()
     return redirect(url_for('home'))
+
 
 @app.route('/admin')
 @login_required
@@ -107,15 +107,12 @@ def admin():
         abort(403)
     return render_template('admin.html')
 
-@app.route('/inventario')
 
+@app.route('/inventario')
+@login_required
 def inventario():
-    print(current_user)
-    print(current_user.is_authenticated)
-    print(current_user.role)
     if current_user.role not in ['admin', 'user']:
         abort(403)
     return render_template('inventario.html')
 
-if __name__ == '__main__':
-    app.run(host='10.0.100.122',port=80,debug=False)
+
